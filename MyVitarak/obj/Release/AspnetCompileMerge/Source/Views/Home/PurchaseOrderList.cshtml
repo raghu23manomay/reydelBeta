@@ -1,0 +1,496 @@
+﻿
+
+@{
+
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Verdana, sans-serif;
+    }
+
+    .weekdays {
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    td {
+        border: none;
+        background-color: white;
+        border-top: none !important;
+    }
+
+    .days td .active {
+        padding: 5px;
+        background: #1abc9c;
+        color: white !important
+    }
+
+    .blur {
+        box-shadow: 0px 0px 20px 20px rgba(255,255,255,1);
+        text-shadow: 0px 0px 10px rgba(51, 51, 51, 0.9);
+        transform: scale(0.9);
+        opacity: 0.6;
+    }
+</style>
+<div class="ibox">
+    <div class="col-md-12">
+        <div id="pageLoader">
+            <div class="loader"></div>
+        </div>
+    </div>
+</div>
+<div>
+    @using (Html.BeginForm("PurcahseList", "Home", FormMethod.Post))
+    {
+        <div id="MainContent">
+            <input type="hidden" id="VendorID" value="@ViewBag.VendorID" />
+            <input type="hidden" id="VendorName" value="@ViewBag.VendorName" />
+
+            <div class="ibox">
+                <div class="ibox-title ">
+                    <h5> @ViewBag.VendorName  </h5>
+
+                </div>
+
+                <div class="ibox-content" style="border:none;">
+
+                    <div class="row">
+
+                        <div style="overflow:scroll">
+                            <table class="table  table-striped" style="margin: 4px; margin-top: 0px;">
+
+                                <tbody>
+                                    <tr>
+                                        <td>Mo</td>
+                                        <td>Tu</td>
+                                        <td>We</td>
+                                        <td>Th</td>
+                                        <td>Fr</td>
+                                        <td>Sa</td>
+                                        <td>Su</td>
+                                        <td>Mo</td>
+                                        <td>Tu</td>
+                                        <td>We</td>
+                                        <td>Th</td>
+                                        <td>Fr</td>
+                                        <td>Sa</td>
+                                        <td>Su</td>
+                                        <td>Mo</td>
+                                        <td>Tu</td>
+                                        <td>We</td>
+                                        <td>Th</td>
+                                        <td>Fr</td>
+                                        <td>Sa</td>
+                                        <td>Su</td>
+                                        <td>Mo</td>
+                                        <td>Tu</td>
+                                        <td>We</td>
+                                        <td>Th</td>
+                                        <td>Fr</td>
+                                        <td>Sa</td>
+                                        <td>Su</td>
+                                        <td>Mo</td>
+                                        <td>Tu</td>
+                                        <td>We</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <code id="1">1</code>
+                                        </td>
+                                        <td>
+                                            <code id="2">2</code>
+                                        </td>
+                                        <td>
+                                            <code id="3">3</code>
+                                        </td>
+                                        <td>
+                                            <code id="4">4</code>
+                                        </td>
+                                        <td>
+                                            <code id="5">5</code>
+                                        </td>
+                                        <td>
+                                            <code id="6">6</code>
+                                        </td>
+                                        <td>
+                                            <code id="7">7</code>
+                                        </td>
+                                        <td>
+                                            <code id="8">8</code>
+                                        </td>
+                                        <td>
+                                            <code id="9">9</code>
+                                        </td>
+                                        <td>
+                                            <code id="10">10</code>
+                                        </td>
+                                        <td>
+                                            <code id="11">11</code>
+                                        </td>
+
+                                        <td>
+                                            <code id="12">12</code>
+                                        </td>
+                                        <td>
+                                            <code id="13">13</code>
+                                        </td>
+                                        <td>
+                                            <code id="14">14</code>
+                                        </td>
+
+                                        <td>
+                                            <code id="15">15</code>
+                                        </td>
+                                        <td>
+                                            <code id="16">16</code>
+                                        </td>
+                                        <td>
+                                            <code id="17">17</code>
+                                        </td>
+                                        <td>
+                                            <code id="18">18</code>
+                                        </td>
+                                        <td>
+                                            <code id="19">19</code>
+                                        </td>
+                                        <td>
+                                            <code id="20"> 20</code>
+                                        </td>
+                                        <td>
+                                            <code id="20">21</code>
+                                        </td>
+                                        <td>
+                                            <code id="20">22</code>
+                                        </td>
+                                        <td>
+                                            <code id="20">23</code>
+                                        </td>
+                                        <td>
+                                            <code id="20">24</code>
+                                        </td>
+                                        <td>
+                                            <code id="20">25</code>
+                                        </td>
+                                        <td>
+                                            <code id="20">26</code>
+                                        </td>
+                                        <td>
+                                            <code id="27">27</code>
+                                        </td>
+                                        <td>
+                                            <code id="28">28</code>
+                                        </td>
+                                        <td>
+                                            <code id="29">29</code>
+                                        </td>
+                                        <td>
+                                            <code id="30">30</code>
+                                        </td>
+                                        <td>
+                                            <code id="30">31</code>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins createOrder " style="margin:0px 15px 10px 15px;" id="createOrder">
+                <div class="ibox-content">
+
+                    <div class="ibox" style="margin-bottom: 4px!important;">
+                        <div class=" text-center loginscreen animated fadeInDown">
+
+                            <div>
+
+                                <h1><img src="~/Content/images/bottle.jpeg" style="width:100px;" /></h1>
+
+                            </div>
+
+                            <div class="form-group">
+                                <small>No Orders found for today!</small>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="btnCreateOrder" class="btn btn-warning btn-circle full-width m-b ">Create Order</button>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="btnRepeatOrder" class="btn btn-circle   full-width m-b">Repeat Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ibox float-e-margins" style="margin:0px 15px 10px 15px;" id="ShowList">
+
+
+
+            </div>
+
+        </div>
+        <div class="modal fade MyModel" id="UpdateQuantity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="UpdateQuantityTitle">Update Quantity <label id="ProductName"></label>   </h5>
+                        <button type="button" class="close btnclose" aria-label="Close" id="btnclose">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="media-body">
+                        <div class="ibox" style="margin-bottom: 4px!important;">
+
+
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Quantity</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="Quantity" id="txtQuantity" class="form-control">
+                                    <div class="text-danger" id="Quantity_error_msg"></div>
+                                    <input type="hidden" id="BillId">
+                                    <input type="hidden" id="ProductId">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Likage</label>
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="Likage" id="txtlikageQty" class="form-control">
+                                    <div class="text-danger" id="Likage_error_msg"></div>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-white btnclose" type="button" id="btncancel">Cancel</button>
+                                    <button class="btn btn-primary" type="button" id="btnUpdatePurchaseQuantity">Save changes</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade MyModel" id="PaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="PaymentModalTitle">Payment Details <label id="ProductName"></label>   </h5>
+                        <button type="button" class="close btnclose" aria-label="Close" id="btnclose">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="media-body">
+                        <div class="ibox" style="margin-bottom: 4px!important;">
+
+
+                            <div class="form-group">
+
+                                <label class="col-lg-2 control-label">Cash Amount</label>
+
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="Cash Amount" id="txtCashAmount" class="form-control">
+
+
+                                </div>
+                                <label class="col-lg-2 control-label">Cheque Number</label>
+
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="Cheque Number" id="txtChequeNo" class="form-control">
+
+
+                                </div>
+                                <label class="col-lg-2 control-label">Cheque Amount</label>
+
+                                <div class="col-lg-10">
+                                    <input type="text" placeholder="Cheque Amount" id="txtChequeAmount" class="form-control">
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-white btnclose" type="button" id="btncancel">Cancel</button>
+                                    <button class="btn btn-primary" type="button" id="btnSavePayment">Submit </button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="~/Content/js/jquery-2.1.1.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+        function load() {
+            $("#pageLoader").show();
+            $("code").removeClass("btn-primary");
+            var VendorID = $("#VendorID").val()
+
+            var Day = new Date().getDate()
+            $("#" + Day + "").removeClass("btn-default").addClass("btn-primary");
+            var Month = new Date().getMonth() + 1;
+            var Year = new Date().getFullYear();
+            $.ajax({
+                type: "POST",
+                url: "../home/PurchaseOrderDetails?VendorID=" + VendorID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+
+                contentType: "application/json; charset=utf-8",
+
+                success: function (msg) {
+                    $("#pageLoader").hide();
+                    $("#createOrder").hide();
+                    $("#ShowList").show();
+                    $("#ShowList").html(msg);
+                }
+                , error: function (msg) {
+                    $("#pageLoader").hide();
+                    $("#createOrder").show();
+                    $("#ShowList").hide();
+                }
+            });
+            if (Day == new Date().getDate() && Month == new Date().getMonth() + 1 && Year == new Date().getFullYear()) {
+                $("#btnPay").show();
+                $("#trPay").show();
+            }
+            else {
+                $("#btnPay").hide();
+                $("#trPay").hide();
+            }
+        }
+
+        $(document).ready(function () {
+
+            load();
+            $('#btnCreateOrder').click(function () {
+                $("#pageLoader").show();
+                var Day = $(".btn-primary").attr("id");
+                var VendorID = $("#VendorID").val()
+                var Month = new Date().getMonth() + 1;
+                var Year = new Date().getFullYear();
+
+                $.ajax({
+                    type: "POST",
+                    url: "../home/CreatePurchaseOrder?VendorID=" + VendorID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        $("#createOrder").hide();
+                        $("#ShowList").show();
+                        $("#ShowList").html(msg);
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "../home/PurchaseOrderDetails?VendorID=" + VendorID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        $("#createOrder").hide();
+                        $("#ShowList").show();
+                        $("#ShowList").html(msg);
+                        $("#pageLoader").hide();
+                    }
+                    , error: function (msg) {
+                        $("#createOrder").show();
+                        $("#ShowList").hide();
+                        $("#pageLoader").hide();
+                    }
+                });
+            });
+            $("code").click(function () {
+                 
+                $("#pageLoader").show();
+                $("code").removeClass("btn-primary");
+                $(this).removeClass("btn-default").addClass("btn-primary");
+                var VendorID = $("#VendorID").val();
+                var Day = this.innerText;
+                var Month = new Date().getMonth() + 1;
+                var Year = new Date().getFullYear();
+                $.ajax({
+                    type: "POST",
+                    url: "../home/PurchaseOrderDetails?VendorID=" + VendorID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        
+                        $("#createOrder").hide();
+                        $("#ShowList").show();
+                        $("#ShowList").html(msg);
+                        $("#pageLoader").hide();
+                    }
+                    , error: function (msg) {
+                       
+                        $("#createOrder").show();
+                        $("#ShowList").hide();
+                        $("#pageLoader").hide();
+                    }
+                });
+            });
+
+            $('#btnRepeatOrder').click(function () {
+                $("#pageLoader").show();
+                var Day = $(".btn-primary").attr("id")
+                var Month = new Date().getMonth();
+                var Year = new Date().getFullYear();
+                var VendorID = $("#VendorID").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "../home/RepeatPurchaseOrder?VendorID=" + VendorID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+
+                        $("#createOrder").hide();
+                        $("#ShowList").show();
+                        $("#ShowList").html(msg);
+                    }
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "../home/PurchaseOrderDetails?VendorID=" + VendorID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (msg) {
+                        $("#pageLoader").hide();
+                        $("#createOrder").hide();
+                        $("#ShowList").show();
+                        $("#ShowList").html(msg);
+                    }
+                    , error: function (msg) {
+                        $("#pageLoader").hide();
+                        $("#createOrder").show();
+                        $("#ShowList").hide();
+                    }
+                });
+            });
+          
+        });
+
+</script>

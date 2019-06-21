@@ -1,0 +1,466 @@
+﻿@model  IEnumerable<MyVitarak.Models.DeliveryOrderDetails>
+@{
+
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Verdana, sans-serif;
+    }
+
+    .weekdays {
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    td {
+        border: none;
+        background-color: white;
+        border-top: none !important;
+    }
+
+    .days td .active {
+        padding: 5px;
+        background: #1abc9c;
+        color: white !important
+    }
+
+    .blur {
+        box-shadow: 0px 0px 20px 20px rgba(255,255,255,1);
+        text-shadow: 0px 0px 10px rgba(51, 51, 51, 0.9);
+        transform: scale(0.9);
+        opacity: 0.6;
+    }
+</style>
+ 
+     
+        <div id="pageLoader" style="display:none;">
+            <div class="loader"></div>
+        </div>
+    
+        <div>
+            @using (Html.BeginForm("DeliveryOrderDetails", "Home", FormMethod.Post))
+            {
+                <div id="MainContent">
+                    <input type="hidden" id="CustomerID" value="@ViewBag.CustomerID" />
+                    @*<input type="hidden" id="CustomerName" value="@Modal.CustomerName" />*@
+
+                    <div class="ibox">
+                        <div class="ibox-title ">
+                            <h5>Ram   </h5>
+                        </div>
+                    </div>
+
+
+                    <div class="ibox">
+
+
+                        <div class="ibox-content" style="padding-top:55px;">
+
+                            @foreach (var item in Model)
+                            {
+
+                                <div class="ibox" style="margin-bottom: 4px!important;">
+                                    <div class="feed-activity-list">
+                                        <div class="feed-element Customer" name=" @item.Product" Qantity="@item.Quantity" BillId="@item.BillId" ProductId="@item.ProductId">
+
+                                            <span class="pull-left">
+                                                <img alt="image" style="height: 40px;width: 40px" src="~/Content/images/SmallBottle.png" />
+                                            </span>
+                                            <div class="media-body ">
+                                                <small class="pull-right"> <strong> <i class="fa fa-inr"></i>  @item.Amount </strong> </small>
+                                                <strong>
+                                                    <label class="Product">  @item.Product </label>
+                                                </strong> <br>
+                                                <small class="text-muted"> @item.Quantity</small>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            }
+                            <input type="hidden" id="BillIdGlobal" value="@Model.First().BillId">
+                            @if (Model.Count() > 0)
+                            {
+                                <div class="ibox footer" style="margin-bottom: 4px!important;">
+                                    <div class="feed-activity-list">
+
+                                        <table class="table small m-b-xs" style="font-size:12px;">
+                                            <tbody>
+
+
+                                                <tr style="border-top: 1px dashed #e7eaec">
+                                                    <td>
+                                                        <strong>   Total Amount </strong> @Model.FirstOrDefault().TotalAmount
+                                                    </td>
+                                                    <td class="pull-right">
+
+                                                        <strong>   Total Quantity </strong> @Model.FirstOrDefault().Quantity
+                                                    </td>
+                                                </tr>
+
+                                                <tr style="  border-top: 1px dashed #e7eaec" id="trpay">
+                                                    <td>
+                                                        <strong>
+                                                            <button class="btn btn-primary" type="button" id="btnDeliver">Delivered  </button>
+
+                                                        </strong>
+                                                    </td>
+                                                    <td class="pull-right">
+                                                        <button class="btn btn-primary" type="button" id="btnPay">Pay  </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal fade MyModel" id="UpdateQuantity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="UpdateQuantityTitle">Update Quantity <label id="ProductName"></label>   </h5>
+                                <button type="button" class="close btnclose" aria-label="Close" id="btnclose">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="media-body">
+                                <div class="ibox" style="margin-bottom: 4px!important;">
+
+
+                                    <div class="form-group">
+
+                                        <label class="col-lg-2 control-label">Quantity</label>
+
+                                        <div class="col-lg-10">
+                                            <input type="text" placeholder="Quantity" id="txtQuantity" class="form-control">
+                                            <div class="text-danger" id="Quantity_error_msg"></div>
+                                            <input type="hidden" id="BillId">
+                                            <input type="hidden" id="ProductId">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-white btnclose" type="button" id="btncancel">Cancel</button>
+                                            <button class="btn btn-primary" type="button" id="btnUpdateQuantity">Save changes</button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade MyModel" id="PaymentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="PaymentModalTitle">Payment Details <label id="ProductName"></label>   </h5>
+                                <button type="button" class="close btnclose" aria-label="Close" id="btnclose">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="media-body">
+                                <div class="ibox" style="margin-bottom: 4px!important;">
+
+
+                                    <div class="form-group">
+
+                                        <label class="col-lg-2 control-label">Cash Amount</label>
+
+                                        <div class="col-lg-10">
+                                            <input type="text" placeholder="Cash Amount" id="txtCashAmount" class="form-control">
+                                            <div class="text-danger" id="CashAmount_error_msg"></div>
+
+                                        </div>
+                                        <label class="col-lg-2 control-label">Cheque Number</label>
+
+                                        <div class="col-lg-10">
+                                            <input type="text" placeholder="Cheque Number" id="txtChequeNo" class="form-control">
+
+
+                                        </div>
+                                        <label class="col-lg-2 control-label">Cheque Amount</label>
+
+                                        <div class="col-lg-10">
+                                            <input type="text" placeholder="Cheque Amount" id="txtChequeAmount" class="form-control">
+                                            <div class="text-danger" id="ChequeAmount_error_msg"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-white btnclose" type="button" id="btncancel">Cancel</button>
+                                            <button class="btn btn-primary" type="button" id="btnSavePayment">Submit </button>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade MyModel" id="DeliveryModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="PaymentModalTitle">Delivery Details <label id="ProductName"></label>   </h5>
+                                <button type="button" class="close btnclose" aria-label="Close" id="btnclose">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="media-body">
+                                <div class="ibox" style="margin-bottom: 4px!important;"> 
+                                    <div class="form-group">
+
+                                        <label class="col-lg-2 control-label">Crates In</label> 
+                                        <div class="col-lg-10">
+                                            <input type="text" placeholder="Crates In" id="txtCratesIn" class="form-control">
+                                            <div class="text-danger" id="CratesIn_error_msg"></div>
+                                        </div>
+                                        <label class="col-lg-2 control-label">Crates Out</label> 
+                                        <div class="col-lg-10">
+                                            <input type="text" placeholder="Cheque Number" id="txtCratesOut" class="form-control">
+                                            <div class="text-danger" id="CratesOut_error_msg"></div>
+                                        </div> 
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-white btnclose" type="button" id="btncancel">Cancel</button>
+                                            <button class="btn btn-primary" type="button" id="btnCratesSave">Submit </button>
+                                        </div>
+                                    </div> 
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="~/Content/js/jquery-2.1.1.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        $(".Customer").click(function () {
+
+            $('#UpdateQuantity').show();
+            $('#MainContent').addClass("blur");
+            var Pname = this.getAttribute("name")
+            $("#ProductName").val(Pname);
+            $('#txtQuantity').val(this.getAttribute("Qantity"));
+            $('#BillId').val(this.getAttribute("BillId"));
+            document.getElementById('ProductName').innerHTML = Pname;
+            $('#ProductId').val(this.getAttribute("ProductId"));
+
+        });
+        $(".btnclose").click(function () {
+            $("#UpdateQuantity").hide();
+            $('#MainContent').removeClass("blur");
+            $("#PaymentModal").hide();
+            $("#DeliveryModel").hide();
+        });
+        $("#btnPay").click(function () {
+            $("#PaymentModal").show();
+            $('#MainContent').addClass("blur");
+
+        });
+        $("#btnDeliver").click(function () {
+            $("#DeliveryModel").show();
+            $('#MainContent').addClass("blur");
+
+        });
+        $("#btnSavePayment").click(function () {
+
+            var CustomerID = $("#CustomerID").val();
+            var BillId = $("#BillIdGlobal").val();
+            var CashAmount = $("#txtCashAmount").val();
+            var ChequeAmount = $("#txtChequeAmount").val();
+            var ChequeNo = $("#txtChequeNo").val();
+
+            if (CashAmount == "") {
+                $('#CashAmount_error_msg').html("Please Enter Cash Amount.");
+                $('#CashAmount_error_msg').show();
+                $("#pageLoader").hide();
+                return false;
+            }
+            else {
+                $('#CashAmount_error_msg').hide();
+            }
+            if (ChequeAmount == "") {
+                $('#ChequeAmount_error_msg').html("Please Enter Cheque Amount.");
+                $('#ChequeAmount_error_msg').show();
+                $("#pageLoader").hide();
+                return false;
+            }
+            else {
+                $('#ChequeAmount_error_msg').hide();
+            }
+            $.ajax({
+                type: "POST",
+                url: "../home/SavePayment?CustomerID=" + CustomerID + "&BillId=" + BillId + "&CashAmount=" + CashAmount + "&ChequeAmount=" + ChequeAmount + "&ChequeNo=" + ChequeNo,
+
+                contentType: "application/json; charset=utf-8",
+
+                success: function (msg) {
+                    $('#PaymentModal').hide();
+                    $('#MainContent').removeClass("blur");
+
+                    var Day = $(".btn-primary").attr("id");
+                    var Month = new Date().getMonth() + 1;
+                    var Year = new Date().getFullYear();
+                    $.ajax({
+                        type: "POST",
+                        url: "../home/OrderDetails?CustomerID=" + CustomerID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+
+                        contentType: "application/json; charset=utf-8",
+
+                        success: function (msg) {
+
+                            $("#createOrder").hide();
+                            $("#ShowList").show();
+                            $("#ShowList").html(msg);
+                        }
+                        , error: function (msg) {
+
+                            $("#createOrder").show();
+                            $("#ShowList").hide();
+
+                        }
+                    });
+
+
+                }
+                , error: function (msg) {
+
+
+                }
+            });
+
+        });
+        $("#btnUpdateQuantity").click(function () {
+            $("#pageLoader").show();
+            var CustomerID = $("#CustomerID").val();
+            var BillId = $("#BillId").val();
+            var ProductId = $("#ProductId").val();
+            var Quantity = $("#txtQuantity").val();
+            if (Quantity == "") {
+                $('#Quantity_error_msg').html("Please Enter Quantity.");
+                $('#Quantity_error_msg').show();
+                $("#pageLoader").hide();
+                return false;
+            }
+            else {
+                $('#Quantity_error_msg').hide();
+            }
+            $.ajax({
+                type: "POST",
+                url: "../home/UpdateQuantity?CustomerID=" + CustomerID + "&BillId=" + BillId + "&ProductID=" + ProductId + "&Quantity=" + Quantity,
+                contentType: "application/json; charset=utf-8",
+                success: function (msg) {
+                    $('#UpdateQuantity').hide();
+                    $('#MainContent').removeClass("blur");
+                    var Day = $(".btn-primary").attr("id");
+                    var Month = new Date().getMonth() + 1;
+                    var Year = new Date().getFullYear();
+                    $.ajax({
+                        type: "POST",
+                        url: "../home/OrderDetails?CustomerID=" + CustomerID + "&Day=" + Day + "&Month=" + Month + "&Year=" + Year,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (msg) {
+                            $("#createOrder").hide();
+                            $("#ShowList").show();
+                            $("#ShowList").html(msg);
+                            $("#pageLoader").hide();
+                        }
+                        , error: function (msg) {
+                            $("#createOrder").show();
+                            $("#ShowList").hide();
+                        }
+                    }); 
+                }
+                , error: function (msg) {
+                    $("#pageLoader").hide();
+
+                }
+            });
+        });
+
+
+        $("#btnCratesSave").click(function () {
+           
+            var CustomerID = $("#CustomerID").val();
+            var BillId = $("#BillIdGlobal").val();
+            var  CratesIn = $("#txtCratesIn").val();
+            var CratesOut = $("#txtCratesOut").val();
+            var Day = new Date().getDate() ;
+            var Month = new Date().getMonth() + 1;
+            var Year = new Date().getFullYear();
+
+            if (CratesIn == "") {
+                $('#CratesIn_error_msg').html("Please Enter Crates In.");
+                $('#CratesIn_error_msg').show();
+                $("#pageLoader").hide();
+                return false;
+            }
+            else {
+                $('#CratesIn_error_msg').hide();
+            }
+            if (CratesOut == "") {
+                $('#CratesOut_error_msg').html("Please Enter Crates Out.");
+                $('#CratesOut_error_msg').show();
+                $("#pageLoader").hide();
+                return false;
+            }
+            else {
+                $('#CratesOut_error_msg').hide();
+            }
+            $.ajax({
+                type: "POST",
+                url: "../home/SaveCrates?Day=" + Day + "&Month=" + Month + "&Year=" + Year + "&CustomerID=" + CustomerID + "&CratesIn=" + CratesIn + "&CratesOut=" + CratesOut ,
+                contentType: "application/json; charset=utf-8",
+
+                success: function (msg) {
+                    $('#DeliveryModel').hide();
+                    $('#MainContent').removeClass("blur");
+
+                }
+                , error: function (msg) {
+
+
+                }
+            });
+
+        });
+    });
+</script>

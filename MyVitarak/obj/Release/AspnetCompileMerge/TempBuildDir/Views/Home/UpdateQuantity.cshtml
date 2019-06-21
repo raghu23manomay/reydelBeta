@@ -1,0 +1,38 @@
+﻿ 
+<div>
+    @using (Html.BeginForm("UpdateQuantity", "Home", FormMethod.Post))
+    {
+        <div class="ibox">
+            <div class="ibox-title fixed-header">
+                <h5>  @ViewBag.Product  </h5>
+
+            </div>
+
+            <div class="ibox-content" style="padding-top:55px;">
+
+                
+
+                    <div class="ibox" style="margin-bottom: 4px!important;">
+                        <div class="feed-activity-list">
+                            <div class="feed-element CustomerID">
+
+                                <span class="pull-left">
+                                    <img alt="image" style="height: 40px; width: 40px" src="~/Content/images/Person.png">
+                                </span>
+                                <div class="media-body">
+                                    <small class="pull-right"> <strong> <i class="fa fa-inr"></i> @ViewBag.quantity </strong> </small>
+                                    <strong>@ViewBag.productName</strong> <br>
+                                   
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                
+            </div>
+        </div>  
+    }
+</div>

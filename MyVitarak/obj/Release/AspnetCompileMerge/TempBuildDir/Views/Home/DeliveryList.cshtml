@@ -1,0 +1,46 @@
+﻿
+@model  IEnumerable<MyVitarak.Models.DeliveryList>
+@{
+
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+<div>
+    @using (Html.BeginForm("DeliveryList", "Home", FormMethod.Post))
+    {
+        <div class="ibox">
+            <div class="ibox-title fixed-header">
+                <h5>  @Model.First().Route  </h5>
+            </div>
+            <div class="ibox-content" style="padding-top:55px;">
+                @foreach (var item in Model)
+                {
+                    <div class="ibox" style="margin-bottom: 4px!important;">
+                        <div class="feed-activity-list">
+
+                            <div class="feed-element CustomerID" id="customer-@item.CustomerID" CustomerName="@item.CustomerName">
+
+                                <span class="pull-left">
+                                    <img alt="image" style="height: 40px; width: 40px" src="~/Content/images/Person.png">
+                                </span>
+                                <div class="media-body ">
+                                    <small class="pull-right"> <strong>   @item.Quantity </strong> </small>
+                                    <strong>@item.CustomerName</strong> <br>
+                                    <small class="text-muted"> @item.AddressDetails</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+<script type="text/javascript">
+    $('.CustomerID').click(function () {
+        
+        var CustomerID = this.id.replace("customer-", "");
+        var CustomerName = this.getAttribute("CustomerName");
+        document.location.href = "../home/DeliveryOrderDetails?CustomerID=" + CustomerID;
+    })
+</script>
